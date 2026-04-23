@@ -1,0 +1,7 @@
+## This file is a template.
+## Copy these lines into your real local.properties file.
+
+# WordPress Credentials to be added below the sdk path line in local.properties
+WP_USERNAME=your_email_here
+WP_PASSWORD=your_app_password_here
+GOOGLE_WEB_CLIENT_ID=your_id_here.apps.googleusercontent.com

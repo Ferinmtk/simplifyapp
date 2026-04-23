@@ -1,0 +1,1477 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 35,
+    "identityHash": "56e0b7afa934cddf7b1cf8a74c5230f0",
+    "entities": [
+      {
+        "tableName": "users",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`username` TEXT NOT NULL, `email` TEXT NOT NULL, `displayName` TEXT NOT NULL, `roles` TEXT NOT NULL, `avatarUrl` TEXT, `uuid` TEXT NOT NULL, `remote_id` INTEGER NOT NULL, `type` TEXT NOT NULL, `status` TEXT NOT NULL, `user_id` INTEGER NOT NULL, PRIMARY KEY(`uuid`))",
+        "fields": [
+          {
+            "fieldPath": "username",
+            "columnName": "username",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "email",
+            "columnName": "email",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "displayName",
+            "columnName": "displayName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "roles",
+            "columnName": "roles",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "avatarUrl",
+            "columnName": "avatarUrl",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "uuid",
+            "columnName": "uuid",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "remoteId",
+            "columnName": "remote_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "type",
+            "columnName": "type",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "status",
+            "columnName": "status",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "userId",
+            "columnName": "user_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "uuid"
+          ]
+        }
+      },
+      {
+        "tableName": "strategies",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`purpose` TEXT NOT NULL, `coreValues` TEXT NOT NULL, `targetMarkets` TEXT NOT NULL, `deletedTargetMarketIds` TEXT NOT NULL, `solutions` TEXT NOT NULL, `budgetMarketing` INTEGER NOT NULL, `budgetSales` INTEGER NOT NULL, `budgetOperations` INTEGER NOT NULL, `budgetAdmin` INTEGER NOT NULL, `leadershipFirst` TEXT NOT NULL, `leadershipLast` TEXT NOT NULL, `marketingFirst` TEXT NOT NULL, `marketingLast` TEXT NOT NULL, `salesFirst` TEXT NOT NULL, `salesLast` TEXT NOT NULL, `operationsFirst` TEXT NOT NULL, `operationsLast` TEXT NOT NULL, `systemsFirst` TEXT NOT NULL, `systemsLast` TEXT NOT NULL, `hasMarketingLead` INTEGER NOT NULL, `hasSalesLead` INTEGER NOT NULL, `hasOperationsLead` INTEGER NOT NULL, `hasSystemsLead` INTEGER NOT NULL, `uuid` TEXT NOT NULL, `remoteId` INTEGER, `isDirty` INTEGER NOT NULL, `status` TEXT NOT NULL, PRIMARY KEY(`uuid`))",
+        "fields": [
+          {
+            "fieldPath": "purpose",
+            "columnName": "purpose",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "coreValues",
+            "columnName": "coreValues",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "targetMarkets",
+            "columnName": "targetMarkets",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "deletedTargetMarketIds",
+            "columnName": "deletedTargetMarketIds",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "solutions",
+            "columnName": "solutions",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "budgetMarketing",
+            "columnName": "budgetMarketing",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "budgetSales",
+            "columnName": "budgetSales",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "budgetOperations",
+            "columnName": "budgetOperations",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "budgetAdmin",
+            "columnName": "budgetAdmin",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "leadershipFirst",
+            "columnName": "leadershipFirst",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "leadershipLast",
+            "columnName": "leadershipLast",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "marketingFirst",
+            "columnName": "marketingFirst",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "marketingLast",
+            "columnName": "marketingLast",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "salesFirst",
+            "columnName": "salesFirst",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "salesLast",
+            "columnName": "salesLast",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "operationsFirst",
+            "columnName": "operationsFirst",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "operationsLast",
+            "columnName": "operationsLast",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "systemsFirst",
+            "columnName": "systemsFirst",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "systemsLast",
+            "columnName": "systemsLast",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "hasMarketingLead",
+            "columnName": "hasMarketingLead",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "hasSalesLead",
+            "columnName": "hasSalesLead",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "hasOperationsLead",
+            "columnName": "hasOperationsLead",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "hasSystemsLead",
+            "columnName": "hasSystemsLead",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "uuid",
+            "columnName": "uuid",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "remoteId",
+            "columnName": "remoteId",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "isDirty",
+            "columnName": "isDirty",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "status",
+            "columnName": "status",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "uuid"
+          ]
+        }
+      },
+      {
+        "tableName": "leadership",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`strategy_review_schedule` TEXT NOT NULL, `decision_framework` TEXT NOT NULL, `decision_tools` TEXT NOT NULL, `delegation_plan` TEXT NOT NULL, `expectation_setting` TEXT NOT NULL, `communication_channels` TEXT NOT NULL, `leadership_training` TEXT NOT NULL, `coaching_programs` TEXT NOT NULL, `leadership_kpis` TEXT NOT NULL, `feedback_mechanism` TEXT NOT NULL, `change_management_framework` TEXT NOT NULL, `status_quo_of_implementation` TEXT NOT NULL, `systems_used` TEXT NOT NULL, `deleted_system_remote_ids` TEXT NOT NULL, `uuid` TEXT NOT NULL, `remoteId` INTEGER, `isDirty` INTEGER NOT NULL, `status` TEXT NOT NULL, PRIMARY KEY(`uuid`))",
+        "fields": [
+          {
+            "fieldPath": "strategyReviewSchedule",
+            "columnName": "strategy_review_schedule",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "decisionFramework",
+            "columnName": "decision_framework",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "decisionTools",
+            "columnName": "decision_tools",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "delegationPlan",
+            "columnName": "delegation_plan",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "expectationSetting",
+            "columnName": "expectation_setting",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "communicationChannels",
+            "columnName": "communication_channels",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "leadershipTraining",
+            "columnName": "leadership_training",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "coachingPrograms",
+            "columnName": "coaching_programs",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "leadershipKpis",
+            "columnName": "leadership_kpis",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "feedbackMechanism",
+            "columnName": "feedback_mechanism",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "changeManagementFramework",
+            "columnName": "change_management_framework",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "statusQuoOfImplementation",
+            "columnName": "status_quo_of_implementation",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "systemsUsed",
+            "columnName": "systems_used",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "deletedSystemRemoteIds",
+            "columnName": "deleted_system_remote_ids",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "uuid",
+            "columnName": "uuid",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "remoteId",
+            "columnName": "remoteId",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "isDirty",
+            "columnName": "isDirty",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "status",
+            "columnName": "status",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "uuid"
+          ]
+        }
+      },
+      {
+        "tableName": "marketing",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uuid` TEXT NOT NULL, `remoteId` INTEGER, `isDirty` INTEGER NOT NULL, `status` TEXT NOT NULL, `marketingObjectives` TEXT NOT NULL, `marketingChannelsRationale` TEXT NOT NULL, `marketingBudget` TEXT NOT NULL, `oneOffCost` TEXT NOT NULL, `recurringCost` TEXT NOT NULL, `budgetFrequency` TEXT NOT NULL, `brandCoreMessage` TEXT NOT NULL, `brandTone` TEXT NOT NULL, `contentTypes` TEXT NOT NULL, `successMetricsKeyMetrics` TEXT NOT NULL, `ownersTimeCommitment` TEXT NOT NULL, `ownersSkills` TEXT NOT NULL, `ownersOutsourcingNeeds` TEXT NOT NULL, `systems` TEXT NOT NULL, `deletedSystemRemoteIds` TEXT NOT NULL, `processStatus` TEXT NOT NULL, `idealCustomer` TEXT NOT NULL, `offerStrategy` TEXT NOT NULL, `leadCapture` TEXT NOT NULL, `kpisTracking` TEXT NOT NULL, `contentStrategy` TEXT NOT NULL, `channels` TEXT NOT NULL, `statusQuoOfImplementation` TEXT NOT NULL, PRIMARY KEY(`uuid`))",
+        "fields": [
+          {
+            "fieldPath": "uuid",
+            "columnName": "uuid",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "remoteId",
+            "columnName": "remoteId",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "isDirty",
+            "columnName": "isDirty",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "status",
+            "columnName": "status",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "marketingObjectives",
+            "columnName": "marketingObjectives",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "marketingChannelsRationale",
+            "columnName": "marketingChannelsRationale",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "marketingBudget",
+            "columnName": "marketingBudget",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "oneOffCost",
+            "columnName": "oneOffCost",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "recurringCost",
+            "columnName": "recurringCost",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "budgetFrequency",
+            "columnName": "budgetFrequency",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "brandCoreMessage",
+            "columnName": "brandCoreMessage",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "brandTone",
+            "columnName": "brandTone",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "contentTypes",
+            "columnName": "contentTypes",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "successMetricsKeyMetrics",
+            "columnName": "successMetricsKeyMetrics",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ownersTimeCommitment",
+            "columnName": "ownersTimeCommitment",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ownersSkills",
+            "columnName": "ownersSkills",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ownersOutsourcingNeeds",
+            "columnName": "ownersOutsourcingNeeds",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "systems",
+            "columnName": "systems",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "deletedSystemRemoteIds",
+            "columnName": "deletedSystemRemoteIds",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "processStatus",
+            "columnName": "processStatus",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idealCustomer",
+            "columnName": "idealCustomer",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "offerStrategy",
+            "columnName": "offerStrategy",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "leadCapture",
+            "columnName": "leadCapture",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "kpisTracking",
+            "columnName": "kpisTracking",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "contentStrategy",
+            "columnName": "contentStrategy",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "channels",
+            "columnName": "channels",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "statusQuoOfImplementation",
+            "columnName": "statusQuoOfImplementation",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "uuid"
+          ]
+        }
+      },
+      {
+        "tableName": "objectives",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`objectiveText` TEXT NOT NULL, `pointPerson` TEXT NOT NULL, `dueDate` TEXT NOT NULL, `dueTime` TEXT NOT NULL, `completionStatus` TEXT NOT NULL, `actionSteps` TEXT NOT NULL, `deletedActionStepRemoteIds` TEXT NOT NULL, `uuid` TEXT NOT NULL, `remoteId` INTEGER, `isDirty` INTEGER NOT NULL, `status` TEXT NOT NULL, PRIMARY KEY(`uuid`))",
+        "fields": [
+          {
+            "fieldPath": "objectiveText",
+            "columnName": "objectiveText",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "pointPerson",
+            "columnName": "pointPerson",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dueDate",
+            "columnName": "dueDate",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dueTime",
+            "columnName": "dueTime",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "completionStatus",
+            "columnName": "completionStatus",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "actionSteps",
+            "columnName": "actionSteps",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "deletedActionStepRemoteIds",
+            "columnName": "deletedActionStepRemoteIds",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "uuid",
+            "columnName": "uuid",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "remoteId",
+            "columnName": "remoteId",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "isDirty",
+            "columnName": "isDirty",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "status",
+            "columnName": "status",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "uuid"
+          ]
+        }
+      },
+      {
+        "tableName": "research_and_development",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idea_collection_details` TEXT NOT NULL, `innovation_workshops_details` TEXT NOT NULL, `idea_evaluation_details` TEXT NOT NULL, `swot_analysis_details` TEXT NOT NULL, `prototype_dev_details` TEXT NOT NULL, `testing_plan_details` TEXT NOT NULL, `team_budget_details` TEXT NOT NULL, `project_management_tools_details` TEXT NOT NULL, `feedback_integration_details` TEXT NOT NULL, `iteration_plan_details` TEXT NOT NULL, `roadmap_details` TEXT NOT NULL, `department_coordination_details` TEXT NOT NULL, `innovations_details` TEXT NOT NULL, `ip_docs_details` TEXT NOT NULL, `systems_used` TEXT NOT NULL, `deleted_system_remote_ids` TEXT NOT NULL, `status_quo_of_implementation` TEXT NOT NULL, `uuid` TEXT NOT NULL, `remoteId` INTEGER, `isDirty` INTEGER NOT NULL, `status` TEXT NOT NULL, PRIMARY KEY(`uuid`))",
+        "fields": [
+          {
+            "fieldPath": "ideaCollectionDetails",
+            "columnName": "idea_collection_details",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "innovationWorkshopsDetails",
+            "columnName": "innovation_workshops_details",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ideaEvaluationDetails",
+            "columnName": "idea_evaluation_details",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "swotAnalysisDetails",
+            "columnName": "swot_analysis_details",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "prototypeDevDetails",
+            "columnName": "prototype_dev_details",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "testingPlanDetails",
+            "columnName": "testing_plan_details",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "teamBudgetDetails",
+            "columnName": "team_budget_details",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "projectManagementToolsDetails",
+            "columnName": "project_management_tools_details",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "feedbackIntegrationDetails",
+            "columnName": "feedback_integration_details",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "iterationPlanDetails",
+            "columnName": "iteration_plan_details",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "roadmapDetails",
+            "columnName": "roadmap_details",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "departmentCoordinationDetails",
+            "columnName": "department_coordination_details",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "innovationsDetails",
+            "columnName": "innovations_details",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ipDocsDetails",
+            "columnName": "ip_docs_details",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "systemsUsed",
+            "columnName": "systems_used",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "deletedSystemRemoteIds",
+            "columnName": "deleted_system_remote_ids",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "statusQuoOfImplementation",
+            "columnName": "status_quo_of_implementation",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "uuid",
+            "columnName": "uuid",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "remoteId",
+            "columnName": "remoteId",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "isDirty",
+            "columnName": "isDirty",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "status",
+            "columnName": "status",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "uuid"
+          ]
+        }
+      },
+      {
+        "tableName": "risks",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`business_structure` TEXT NOT NULL, `business_registration` TEXT NOT NULL, `compliance_requirements` TEXT NOT NULL, `compliance_monitoring` TEXT NOT NULL, `contract_templates` TEXT NOT NULL, `contract_review_process` TEXT NOT NULL, `legal_counsel` TEXT NOT NULL, `intellectual_property_strategy` TEXT NOT NULL, `ip_registration_plan` TEXT NOT NULL, `data_privacy_policies` TEXT NOT NULL, `employee_legal_agreements` TEXT NOT NULL, `risk_assessment` TEXT NOT NULL, `risk_mitigation_plan` TEXT NOT NULL, `dispute_resolution_process` TEXT NOT NULL, `systems_used` TEXT NOT NULL, `deleted_system_remote_ids` TEXT NOT NULL, `status_quo_of_implementation` TEXT NOT NULL, `uuid` TEXT NOT NULL, `remoteId` INTEGER, `isDirty` INTEGER NOT NULL, `status` TEXT NOT NULL, PRIMARY KEY(`uuid`))",
+        "fields": [
+          {
+            "fieldPath": "businessStructure",
+            "columnName": "business_structure",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "businessRegistration",
+            "columnName": "business_registration",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "complianceRequirements",
+            "columnName": "compliance_requirements",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "complianceMonitoring",
+            "columnName": "compliance_monitoring",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "contractTemplates",
+            "columnName": "contract_templates",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "contractReviewProcess",
+            "columnName": "contract_review_process",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "legalCounsel",
+            "columnName": "legal_counsel",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "intellectualPropertyStrategy",
+            "columnName": "intellectual_property_strategy",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ipRegistrationPlan",
+            "columnName": "ip_registration_plan",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dataPrivacyPolicies",
+            "columnName": "data_privacy_policies",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "employeeLegalAgreements",
+            "columnName": "employee_legal_agreements",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "riskAssessment",
+            "columnName": "risk_assessment",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "riskMitigationPlan",
+            "columnName": "risk_mitigation_plan",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "disputeResolutionProcess",
+            "columnName": "dispute_resolution_process",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "systemsUsed",
+            "columnName": "systems_used",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "deletedSystemRemoteIds",
+            "columnName": "deleted_system_remote_ids",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "statusQuoOfImplementation",
+            "columnName": "status_quo_of_implementation",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "uuid",
+            "columnName": "uuid",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "remoteId",
+            "columnName": "remoteId",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "isDirty",
+            "columnName": "isDirty",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "status",
+            "columnName": "status",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "uuid"
+          ]
+        }
+      },
+      {
+        "tableName": "sales",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`sales_funnel_stages` TEXT NOT NULL, `lead_qualification_criteria` TEXT NOT NULL, `sales_channels` TEXT NOT NULL, `elevator_pitch` TEXT NOT NULL, `business_purpose` TEXT NOT NULL, `sales_team_structure` TEXT NOT NULL, `sales_goals` TEXT NOT NULL, `sales_training_plan` TEXT NOT NULL, `sales_metrics` TEXT NOT NULL, `price_list` TEXT NOT NULL, `objection_process` TEXT NOT NULL, `systems_used` TEXT NOT NULL, `deleted_system_remote_ids` TEXT NOT NULL, `implementation_status` TEXT NOT NULL, `uuid` TEXT NOT NULL, `remoteId` INTEGER, `isDirty` INTEGER NOT NULL, `status` TEXT NOT NULL, PRIMARY KEY(`uuid`))",
+        "fields": [
+          {
+            "fieldPath": "salesFunnelStages",
+            "columnName": "sales_funnel_stages",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "leadQualificationCriteria",
+            "columnName": "lead_qualification_criteria",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "salesChannels",
+            "columnName": "sales_channels",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "elevatorPitch",
+            "columnName": "elevator_pitch",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "businessPurpose",
+            "columnName": "business_purpose",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "salesTeamStructure",
+            "columnName": "sales_team_structure",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "salesGoals",
+            "columnName": "sales_goals",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "salesTrainingPlan",
+            "columnName": "sales_training_plan",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "salesMetrics",
+            "columnName": "sales_metrics",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "priceList",
+            "columnName": "price_list",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "objectionProcess",
+            "columnName": "objection_process",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "systemsUsed",
+            "columnName": "systems_used",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "deletedSystemRemoteIds",
+            "columnName": "deleted_system_remote_ids",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "implementationStatus",
+            "columnName": "implementation_status",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "uuid",
+            "columnName": "uuid",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "remoteId",
+            "columnName": "remoteId",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "isDirty",
+            "columnName": "isDirty",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "status",
+            "columnName": "status",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "uuid"
+          ]
+        }
+      },
+      {
+        "tableName": "operations",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`workflow_descriptions` TEXT NOT NULL, `key_activities_dependencies` TEXT NOT NULL, `required_resources` TEXT NOT NULL, `inventory_management_protocols` TEXT NOT NULL, `quality_standards` TEXT NOT NULL, `quality_control_methods` TEXT NOT NULL, `standard_operating_procedures` TEXT NOT NULL, `troubleshooting_guide` TEXT NOT NULL, `performance_metrics` TEXT NOT NULL, `monitoring_tools` TEXT NOT NULL, `scalability_steps` TEXT NOT NULL, `automation_outsourcing_plan` TEXT NOT NULL, `operational_risk` TEXT NOT NULL, `contingency_plans` TEXT NOT NULL, `systems` TEXT NOT NULL, `deleted_system_remote_ids` TEXT NOT NULL, `status_quo_of_implementation` TEXT NOT NULL, `uuid` TEXT NOT NULL, `remoteId` INTEGER, `isDirty` INTEGER NOT NULL, `status` TEXT NOT NULL, PRIMARY KEY(`uuid`))",
+        "fields": [
+          {
+            "fieldPath": "workflowDescriptions",
+            "columnName": "workflow_descriptions",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "keyActivitiesDependencies",
+            "columnName": "key_activities_dependencies",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "requiredResources",
+            "columnName": "required_resources",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "inventoryManagementProtocols",
+            "columnName": "inventory_management_protocols",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "qualityStandards",
+            "columnName": "quality_standards",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "qualityControlMethods",
+            "columnName": "quality_control_methods",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "standardOperatingProcedures",
+            "columnName": "standard_operating_procedures",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "troubleshootingGuide",
+            "columnName": "troubleshooting_guide",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "performanceMetrics",
+            "columnName": "performance_metrics",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "monitoringTools",
+            "columnName": "monitoring_tools",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "scalabilitySteps",
+            "columnName": "scalability_steps",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "automationOutsourcingPlan",
+            "columnName": "automation_outsourcing_plan",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "operationalRisk",
+            "columnName": "operational_risk",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "contingencyPlans",
+            "columnName": "contingency_plans",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "systems",
+            "columnName": "systems",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "deletedSystemRemoteIds",
+            "columnName": "deleted_system_remote_ids",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "statusQuoOfImplementation",
+            "columnName": "status_quo_of_implementation",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "uuid",
+            "columnName": "uuid",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "remoteId",
+            "columnName": "remoteId",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "isDirty",
+            "columnName": "isDirty",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "status",
+            "columnName": "status",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "uuid"
+          ]
+        }
+      },
+      {
+        "tableName": "people",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`job_roles_and_skills` TEXT NOT NULL, `recruitment_channels` TEXT NOT NULL, `hiring_process` TEXT NOT NULL, `onboarding_plan` TEXT NOT NULL, `onboarding_training` TEXT NOT NULL, `training_programs` TEXT NOT NULL, `mentorship_programs` TEXT NOT NULL, `performance_goals` TEXT NOT NULL, `performance_review_schedule` TEXT NOT NULL, `compensation_packages` TEXT NOT NULL, `retention_initiatives` TEXT NOT NULL, `succession_plan` TEXT NOT NULL, `leadership_development_plans` TEXT NOT NULL, `employee_engagement_methods` TEXT NOT NULL, `feedback_action_plan` TEXT NOT NULL, `systems` TEXT NOT NULL, `deleted_system_remote_ids` TEXT NOT NULL, `status_quo_of_implementation` TEXT NOT NULL, `uuid` TEXT NOT NULL, `remoteId` INTEGER, `isDirty` INTEGER NOT NULL, `status` TEXT NOT NULL, PRIMARY KEY(`uuid`))",
+        "fields": [
+          {
+            "fieldPath": "jobRolesAndSkills",
+            "columnName": "job_roles_and_skills",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "recruitmentChannels",
+            "columnName": "recruitment_channels",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "hiringProcess",
+            "columnName": "hiring_process",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "onboardingPlan",
+            "columnName": "onboarding_plan",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "onboardingTraining",
+            "columnName": "onboarding_training",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "trainingPrograms",
+            "columnName": "training_programs",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mentorshipPrograms",
+            "columnName": "mentorship_programs",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "performanceGoals",
+            "columnName": "performance_goals",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "performanceReviewSchedule",
+            "columnName": "performance_review_schedule",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "compensationPackages",
+            "columnName": "compensation_packages",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "retentionInitiatives",
+            "columnName": "retention_initiatives",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "successionPlan",
+            "columnName": "succession_plan",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "leadershipDevelopmentPlans",
+            "columnName": "leadership_development_plans",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "employeeEngagementMethods",
+            "columnName": "employee_engagement_methods",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "feedbackActionPlan",
+            "columnName": "feedback_action_plan",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "systems",
+            "columnName": "systems",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "deletedSystemRemoteIds",
+            "columnName": "deleted_system_remote_ids",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "statusQuoOfImplementation",
+            "columnName": "status_quo_of_implementation",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "uuid",
+            "columnName": "uuid",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "remoteId",
+            "columnName": "remoteId",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "isDirty",
+            "columnName": "isDirty",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "status",
+            "columnName": "status",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "uuid"
+          ]
+        }
+      },
+      {
+        "tableName": "money",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`annual_budget_url` TEXT NOT NULL, `departmental_budget_url` TEXT NOT NULL, `cash_flow_forecast_url` TEXT NOT NULL, `revenue_tracking_system` TEXT NOT NULL, `revenue_monitoring_tools` TEXT NOT NULL, `expense_categories` TEXT NOT NULL, `expense_approval_workflow` TEXT NOT NULL, `cost_saving_strategies` TEXT NOT NULL, `cash_reserve_plan` TEXT NOT NULL, `financial_reports` TEXT NOT NULL, `stakeholder_reporting` TEXT NOT NULL, `compliance_requirements` TEXT NOT NULL, `audit_schedule` TEXT NOT NULL, `reinvestment_criteria` TEXT NOT NULL, `funding_options` TEXT NOT NULL, `systems` TEXT NOT NULL, `deleted_system_remote_ids` TEXT NOT NULL, `status_quo_of_implementation` TEXT NOT NULL, `uuid` TEXT NOT NULL, `remoteId` INTEGER, `isDirty` INTEGER NOT NULL, `status` TEXT NOT NULL, PRIMARY KEY(`uuid`))",
+        "fields": [
+          {
+            "fieldPath": "annualBudgetUrl",
+            "columnName": "annual_budget_url",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "departmentalBudgetUrl",
+            "columnName": "departmental_budget_url",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "cashFlowForecastUrl",
+            "columnName": "cash_flow_forecast_url",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "revenueTrackingSystem",
+            "columnName": "revenue_tracking_system",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "revenueMonitoringTools",
+            "columnName": "revenue_monitoring_tools",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "expenseCategories",
+            "columnName": "expense_categories",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "expenseApprovalWorkflow",
+            "columnName": "expense_approval_workflow",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "costSavingStrategies",
+            "columnName": "cost_saving_strategies",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "cashReservePlan",
+            "columnName": "cash_reserve_plan",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "financialReports",
+            "columnName": "financial_reports",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "stakeholderReporting",
+            "columnName": "stakeholder_reporting",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "complianceRequirements",
+            "columnName": "compliance_requirements",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "auditSchedule",
+            "columnName": "audit_schedule",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "reinvestmentCriteria",
+            "columnName": "reinvestment_criteria",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "fundingOptions",
+            "columnName": "funding_options",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "systems",
+            "columnName": "systems",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "deletedSystemRemoteIds",
+            "columnName": "deleted_system_remote_ids",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "statusQuoOfImplementation",
+            "columnName": "status_quo_of_implementation",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "uuid",
+            "columnName": "uuid",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "remoteId",
+            "columnName": "remoteId",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "isDirty",
+            "columnName": "isDirty",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "status",
+            "columnName": "status",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "uuid"
+          ]
+        }
+      },
+      {
+        "tableName": "links",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`items` TEXT NOT NULL, `uuid` TEXT NOT NULL, `remoteId` INTEGER, `isDirty` INTEGER NOT NULL, PRIMARY KEY(`uuid`))",
+        "fields": [
+          {
+            "fieldPath": "items",
+            "columnName": "items",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "uuid",
+            "columnName": "uuid",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "remoteId",
+            "columnName": "remoteId",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "isDirty",
+            "columnName": "isDirty",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "uuid"
+          ]
+        }
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '56e0b7afa934cddf7b1cf8a74c5230f0')"
+    ]
+  }
+}

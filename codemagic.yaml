@@ -1,0 +1,49 @@
+workflows:
+  ios-debug-build:
+    name: iOS Debug Build (Unsigned)
+    max_build_duration: 60
+    instance_type: mac_mini_m2
+    environment:
+      xcode: latest
+      java: 17
+    scripts:
+      - name: Set up local.properties
+        script: |
+          echo "sdk.dir=$ANDROID_SDK_ROOT" > local.properties
+      - name: Make gradlew executable
+        script: |
+          chmod +x ./gradlew
+      - name: Build iOS framework via Gradle
+        script: |
+          ./gradlew :composeApp:linkPodDebugFrameworkIosArm64 --no-daemon --stacktrace
+      - name: Install CocoaPods dependencies
+        script: |
+          cd iosApp
+          if [ -f "Podfile" ]; then
+            pod install
+          else
+            echo "No Podfile found - skipping pod install"
+          fi
+      - name: Build iOS app (unsigned, for simulator)
+        script: |
+          cd iosApp
+          if [ -f "iosApp.xcworkspace" ] || [ -d "iosApp.xcworkspace" ]; then
+            xcodebuild -workspace iosApp.xcworkspace \
+              -scheme iosApp \
+              -configuration Debug \
+              -sdk iphonesimulator \
+              -derivedDataPath build \
+              CODE_SIGNING_ALLOWED=NO \
+              build
+          else
+            xcodebuild -project iosApp.xcodeproj \
+              -scheme iosApp \
+              -configuration Debug \
+              -sdk iphonesimulator \
+              -derivedDataPath build \
+              CODE_SIGNING_ALLOWED=NO \
+              build
+          fi
+    artifacts:
+      - iosApp/build/Build/Products/Debug-iphonesimulator/*.app
+      - /tmp/xcodebuild_logs/*.log
