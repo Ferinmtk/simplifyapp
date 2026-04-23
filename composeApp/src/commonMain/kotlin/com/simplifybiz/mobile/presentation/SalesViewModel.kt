@@ -30,7 +30,7 @@ internal class SalesViewModel(
         viewModelScope.launch {
             getSalesUseCase.observe().collect { entity ->
                 // Anti-flicker: Only update if user isn't actively typing
-                if (System.currentTimeMillis() - lastTypingTime > 3000) {
+                if (getTimeMillis() - lastTypingTime > 3000) {
                     _uiState.value = entity ?: SalesEntity()
                 }
             }
@@ -53,7 +53,7 @@ internal class SalesViewModel(
 
     private fun updateUiAndQueuePersist(updated: SalesEntity) {
         _uiState.value = updated
-        lastTypingTime = System.currentTimeMillis()
+        lastTypingTime = getTimeMillis()
 
         debounceJob?.cancel()
         debounceJob = viewModelScope.launch {

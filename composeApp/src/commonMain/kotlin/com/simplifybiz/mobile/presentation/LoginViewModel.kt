@@ -1,6 +1,5 @@
 package com.simplifybiz.mobile.presentation
 
-import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.simplifybiz.mobile.data.auth.AuthRepository
@@ -36,10 +35,17 @@ class LoginViewModel(
     fun onUsernameChange(value: String) { _username.value = value }
     fun onPasswordChange(value: String) { _password.value = value }
 
-    fun onGoogleLoginClick(context: Context) {
+    /**
+     * Google sign-in flow.
+     *
+     * No Context parameter anymore. The Android actual GoogleAuthManager
+     * holds its Context via Koin's androidContext(); the iOS actual is a
+     * stub that returns null until the native GoogleSignIn SDK is wired up.
+     */
+    fun onGoogleLoginClick() {
         viewModelScope.launch {
             _isLoading.value = true
-            val idToken = googleAuthManager.getGoogleIdToken(context)
+            val idToken = googleAuthManager.getGoogleIdToken()
 
             if (idToken != null) {
                 val result = authRepository.loginWithGoogle(idToken)

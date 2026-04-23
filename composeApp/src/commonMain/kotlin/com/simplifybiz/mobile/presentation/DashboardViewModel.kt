@@ -16,9 +16,9 @@ import com.simplifybiz.mobile.domain.GetResearchAndDevelopmentUseCase
 import com.simplifybiz.mobile.domain.GetRiskUseCase
 import com.simplifybiz.mobile.domain.GetSalesUseCase
 import com.simplifybiz.mobile.domain.GetStrategyUseCase
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import com.simplifybiz.mobile.util.ioDispatcher
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -109,21 +109,20 @@ internal class DashboardViewModel(
             _syncError.value = null
 
             try {
-                withContext(Dispatchers.IO) {
+                withContext(ioDispatcher) {
                     syncRepository.syncAll(forcePull = true)
                 }
                 // Reload UI with freshly synced data
                 applyLoadResult(fetchLocalData())
             } catch (e: Exception) {
                 _syncError.value = "Sync failed. Check your connection."
-                android.util.Log.e("SimplifySync", "Dashboard sync failed: ${e.message}", e)
             } finally {
                 _isSyncing.value = false
             }
         }
     }
 
-    private suspend fun fetchLocalData(): DashboardLoadResult = withContext(Dispatchers.IO) {
+    private suspend fun fetchLocalData(): DashboardLoadResult = withContext(ioDispatcher) {
         DashboardLoadResult(
             user = runCatching { userDao.getUser() }.getOrNull(),
             strategyStatus = runCatching { getStrategyUseCase.execute() }.getOrNull()
@@ -170,7 +169,7 @@ internal class DashboardViewModel(
 
     fun logout(onComplete: () -> Unit) {
         viewModelScope.launch {
-            withContext(Dispatchers.IO) {
+            withContext(ioDispatcher) {
                 runCatching { userDao.clearUser() }
                 runCatching { sessionManager.clearSession() }
             }

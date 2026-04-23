@@ -30,7 +30,7 @@ internal class LeadershipViewModel(
         viewModelScope.launch {
             getLeadershipUseCase.observe().collect { entity ->
                 // Anti-flicker: Only update if user hasn't typed in 3 seconds
-                if (System.currentTimeMillis() - lastTypingTime > 3000) {
+                if (getTimeMillis() - lastTypingTime > 3000) {
                     _uiState.value = entity ?: LeadershipEntity()
                 }
             }
@@ -41,7 +41,7 @@ internal class LeadershipViewModel(
             localLoader = { getLeadershipUseCase.execute() },
             onDataLoaded = { _uiState.value = it },
             remoteRefreshed = { refreshed ->
-                if (System.currentTimeMillis() - lastTypingTime > 3000) {
+                if (getTimeMillis() - lastTypingTime > 3000) {
                     _uiState.value = refreshed
                 }
             }
@@ -50,7 +50,7 @@ internal class LeadershipViewModel(
 
     private fun updateUiAndQueuePersist(updatedEntity: LeadershipEntity) {
         _uiState.value = updatedEntity
-        lastTypingTime = System.currentTimeMillis()
+        lastTypingTime = getTimeMillis()
 
         debounceJob?.cancel()
         debounceJob = viewModelScope.launch {

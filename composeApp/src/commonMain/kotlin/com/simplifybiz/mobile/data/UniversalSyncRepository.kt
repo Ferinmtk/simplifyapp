@@ -5,7 +5,7 @@ import io.ktor.client.call.body
 import io.ktor.client.request.get
 import io.ktor.client.request.post
 import io.ktor.client.request.setBody
-import kotlinx.coroutines.Dispatchers
+import com.simplifybiz.mobile.util.ioDispatcher
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
@@ -95,7 +95,7 @@ internal class UniversalSyncRepository(
      * Links are pull-only — just fetch remote and store locally.
      * Users manage links on the web app only.
      */
-    private suspend fun syncLinks() = withContext(Dispatchers.IO) {
+    private suspend fun syncLinks() = withContext(ioDispatcher) {
         val remote: LinkEntity? = runCatching {
             val wrapped: ApiResponse<LinkEntity> = client.get("links").body()
             if (wrapped.success) wrapped.data else null
@@ -118,7 +118,7 @@ internal class UniversalSyncRepository(
         type: String,
         dao: BaseDao<T>,
         forcePull: Boolean
-    ) where T : Any, T : Syncable = withContext(Dispatchers.IO) {
+    ) where T : Any, T : Syncable = withContext(ioDispatcher) {
 
         val local = dao.getEntity()
 

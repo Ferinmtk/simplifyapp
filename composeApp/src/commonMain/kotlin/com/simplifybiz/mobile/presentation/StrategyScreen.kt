@@ -30,11 +30,9 @@ import kotlinx.coroutines.delay
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
-import androidx.compose.ui.platform.LocalView
-import androidx.compose.runtime.SideEffect
+import com.simplifybiz.mobile.util.SecureDialogInputModeEffect
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
-import androidx.compose.ui.window.DialogWindowProvider
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import com.simplifybiz.mobile.data.TargetMarketItem
@@ -655,12 +653,9 @@ private fun FullScreenEditor(
             dismissOnClickOutside = false
         )
     ) {
-        // Force standard full-width keyboard — prevents floating keyboard on dialog windows
-        val view = LocalView.current
-        SideEffect {
-            (view.parent as? DialogWindowProvider)?.window
-                ?.setSoftInputMode(android.view.WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
-        }
+        // Force standard full-width keyboard — prevents floating keyboard on dialog windows.
+        // Android-only; iOS handles this natively via the expect/actual helper.
+        SecureDialogInputModeEffect()
 
         Surface(
             modifier = Modifier.fillMaxSize(),

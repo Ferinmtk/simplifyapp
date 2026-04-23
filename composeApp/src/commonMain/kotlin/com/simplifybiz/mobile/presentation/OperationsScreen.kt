@@ -24,11 +24,8 @@ import kotlinx.coroutines.delay
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
-import androidx.compose.ui.platform.LocalView
-import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
-import androidx.compose.ui.window.DialogWindowProvider
 
 private val O_Hero    = Color(0xFFE65100)
 private val O_HeroEnd = Color(0xFFF57C00)

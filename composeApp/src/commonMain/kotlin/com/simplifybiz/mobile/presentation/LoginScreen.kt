@@ -9,7 +9,6 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
@@ -28,7 +27,6 @@ class LoginScreen : Screen {
         val navigator = LocalNavigator.currentOrThrow
         val viewModel = koinViewModel<LoginViewModel>()
         val snackbarHostState = remember { SnackbarHostState() }
-        val context = LocalContext.current
 
         var showEmailForm by remember { mutableStateOf(false) }
         val loginEvent by viewModel.loginEvent.collectAsState(initial = null)
@@ -91,7 +89,7 @@ class LoginScreen : Screen {
 
                 if (!showEmailForm) {
                     OutlinedButton(
-                        onClick = { viewModel.onGoogleLoginClick(context) },
+                        onClick = { viewModel.onGoogleLoginClick() },
                         modifier = Modifier.fillMaxWidth().height(56.dp),
                         shape = RoundedCornerShape(12.dp),
                         border = BorderStroke(1.dp, Color.LightGray),

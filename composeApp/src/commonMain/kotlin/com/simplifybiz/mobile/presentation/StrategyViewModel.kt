@@ -30,7 +30,7 @@ internal class StrategyViewModel(
         viewModelScope.launch {
             getStrategyUseCase.observe().collect { entity ->
                 // Prevent overwriting active input
-                if (System.currentTimeMillis() - lastTypingTime > 3000) {
+                if (getTimeMillis() - lastTypingTime > 3000) {
                     _uiState.value = entity ?: StrategyEntity()
                 }
             }
@@ -53,7 +53,7 @@ internal class StrategyViewModel(
 
     private fun updateUiAndQueuePersist(updatedEntity: StrategyEntity) {
         _uiState.value = updatedEntity
-        lastTypingTime = System.currentTimeMillis()
+        lastTypingTime = getTimeMillis()
 
         debounceJob?.cancel()
         debounceJob = viewModelScope.launch {

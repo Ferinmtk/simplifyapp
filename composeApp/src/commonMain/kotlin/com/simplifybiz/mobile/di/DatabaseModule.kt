@@ -6,23 +6,25 @@ import com.simplifybiz.mobile.data.AppDatabase
 import com.simplifybiz.mobile.data.SessionManager
 import com.simplifybiz.mobile.data.auth.AuthRepository
 import com.simplifybiz.mobile.data.auth.GoogleAuthManager
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.IO
-import org.koin.android.ext.koin.androidContext
+import com.simplifybiz.mobile.util.ioDispatcher
 import org.koin.dsl.module
 
 val databaseModule = module {
 
     single { SessionManager(get()) }
-    single { GoogleAuthManager(androidContext()) }
+
+    // GoogleAuthManager is an `expect class` — Android's actual takes a
+    // Context, iOS's actual takes none. Koin's DSL resolves each from the
+    // platform's own Koin module (see KoinAndroid.kt / KoinIos.kt), so we
+    // no longer reference androidContext() from commonMain.
     single { AuthRepository(get(), get(), get()) }
 
     single {
         val builder: RoomDatabase.Builder<AppDatabase> = getDatabaseBuilder()
         builder
-            .fallbackToDestructiveMigration()
+            .fallbackToDestructiveMigration(dropAllTables = true)
             .setDriver(BundledSQLiteDriver())
-            .setQueryCoroutineContext(Dispatchers.IO)
+            .setQueryCoroutineContext(ioDispatcher)
             .build()
     }
 

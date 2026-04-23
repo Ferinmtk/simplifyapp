@@ -28,7 +28,7 @@ internal class ResearchAndDevelopmentViewModel(
     init {
         viewModelScope.launch {
             getRDUseCase.observe().collect { entity ->
-                if (System.currentTimeMillis() - lastTypingTime > 3000) {
+                if (getTimeMillis() - lastTypingTime > 3000) {
                     _uiState.value = entity ?: ResearchAndDevelopmentEntity()
                 }
             }
@@ -38,7 +38,7 @@ internal class ResearchAndDevelopmentViewModel(
             localLoader = { getRDUseCase.execute() },
             onDataLoaded = { _uiState.value = it },
             remoteRefreshed = { refreshed ->
-                if (System.currentTimeMillis() - lastTypingTime > 3000) {
+                if (getTimeMillis() - lastTypingTime > 3000) {
                     _uiState.value = refreshed
                 }
             }
@@ -47,7 +47,7 @@ internal class ResearchAndDevelopmentViewModel(
 
     private fun updateUiAndQueuePersist(updatedEntity: ResearchAndDevelopmentEntity) {
         _uiState.value = updatedEntity
-        lastTypingTime = System.currentTimeMillis()
+        lastTypingTime = getTimeMillis()
 
         debounceJob?.cancel()
         debounceJob = viewModelScope.launch {

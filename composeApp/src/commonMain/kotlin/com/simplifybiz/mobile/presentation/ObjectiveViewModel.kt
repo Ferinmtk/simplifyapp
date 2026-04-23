@@ -30,7 +30,7 @@ internal class ObjectivesViewModel(
         viewModelScope.launch {
             getObjectiveUseCase.observe().collect { entity ->
                 // Anti-flicker: Prevent remote sync from overwriting active user input
-                if (System.currentTimeMillis() - lastTypingTime > 3000) {
+                if (getTimeMillis() - lastTypingTime > 3000) {
                     _currentObjective.value = entity ?: ObjectiveEntity()
                 }
             }
@@ -44,7 +44,7 @@ internal class ObjectivesViewModel(
 
     private fun updateUiAndQueuePersist(updated: ObjectiveEntity) {
         _currentObjective.value = updated
-        lastTypingTime = System.currentTimeMillis()
+        lastTypingTime = getTimeMillis()
         debounceJob?.cancel()
         debounceJob = viewModelScope.launch {
             delay(1000)

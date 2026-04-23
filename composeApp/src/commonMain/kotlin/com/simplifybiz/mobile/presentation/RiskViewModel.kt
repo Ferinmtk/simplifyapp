@@ -28,7 +28,7 @@ internal class RiskViewModel(
     init {
         viewModelScope.launch {
             getRiskUseCase.observe().collect { entity ->
-                if (System.currentTimeMillis() - lastTypingTime > 3000) {
+                if (getTimeMillis() - lastTypingTime > 3000) {
                     _uiState.value = entity ?: RiskEntity()
                 }
             }
@@ -38,7 +38,7 @@ internal class RiskViewModel(
             localLoader = { getRiskUseCase.execute() },
             onDataLoaded = { _uiState.value = it },
             remoteRefreshed = { refreshed ->
-                if (System.currentTimeMillis() - lastTypingTime > 3000) {
+                if (getTimeMillis() - lastTypingTime > 3000) {
                     _uiState.value = refreshed
                 }
             }
@@ -47,7 +47,7 @@ internal class RiskViewModel(
 
     private fun updateUiAndQueuePersist(updatedEntity: RiskEntity) {
         _uiState.value = updatedEntity
-        lastTypingTime = System.currentTimeMillis()
+        lastTypingTime = getTimeMillis()
 
         debounceJob?.cancel()
         debounceJob = viewModelScope.launch {
