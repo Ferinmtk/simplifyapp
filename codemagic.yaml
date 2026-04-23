@@ -5,45 +5,40 @@ workflows:
     instance_type: mac_mini_m2
     environment:
       xcode: latest
-      java: 17
+      # JDK 21 to match gradle/gradle-daemon-jvm.properties (toolchainVersion=21)
+      java: 21
     scripts:
       - name: Set up local.properties
         script: |
           echo "sdk.dir=$ANDROID_SDK_ROOT" > local.properties
+          # BuildConfig fields are read from local.properties by the buildConfig
+          # plugin. For an unsigned simulator build we don't need real values —
+          # empty strings keep the generated class from containing the literal
+          # word "null". Populate these from Codemagic env vars later if needed.
+          echo "WP_USERNAME=" >> local.properties
+          echo "WP_PASSWORD=" >> local.properties
+          echo "GOOGLE_WEB_CLIENT_ID=" >> local.properties
       - name: Make gradlew executable
         script: |
           chmod +x ./gradlew
-      - name: Build iOS framework via Gradle
-        script: |
-          ./gradlew :composeApp:linkPodDebugFrameworkIosArm64 --no-daemon --stacktrace
-      - name: Install CocoaPods dependencies
-        script: |
-          cd iosApp
-          if [ -f "Podfile" ]; then
-            pod install
-          else
-            echo "No Podfile found - skipping pod install"
-          fi
       - name: Build iOS app (unsigned, for simulator)
         script: |
+          set -eox pipefail
           cd iosApp
-          if [ -f "iosApp.xcworkspace" ] || [ -d "iosApp.xcworkspace" ]; then
-            xcodebuild -workspace iosApp.xcworkspace \
-              -scheme iosApp \
-              -configuration Debug \
-              -sdk iphonesimulator \
-              -derivedDataPath build \
-              CODE_SIGNING_ALLOWED=NO \
-              build
-          else
-            xcodebuild -project iosApp.xcodeproj \
-              -scheme iosApp \
-              -configuration Debug \
-              -sdk iphonesimulator \
-              -derivedDataPath build \
-              CODE_SIGNING_ALLOWED=NO \
-              build
-          fi
+          # xcodebuild triggers the "Compile Kotlin Framework" build phase in
+          # the .pbxproj, which runs ./gradlew :composeApp:embedAndSignAppleFrameworkForXcode
+          # That single Gradle call produces AND embeds the framework using the
+          # ARCHS / SDK / CONFIGURATION env vars Xcode passes in. No separate
+          # Gradle step is needed.
+          xcodebuild \
+            -project iosApp.xcodeproj \
+            -scheme iosApp \
+            -configuration Debug \
+            -sdk iphonesimulator \
+            -destination 'generic/platform=iOS Simulator' \
+            -derivedDataPath build \
+            CODE_SIGNING_ALLOWED=NO \
+            build 2>&1 | tee ../xcodebuild.log
     artifacts:
       - iosApp/build/Build/Products/Debug-iphonesimulator/*.app
-      - /tmp/xcodebuild_logs/*.log
+      - xcodebuild.log
