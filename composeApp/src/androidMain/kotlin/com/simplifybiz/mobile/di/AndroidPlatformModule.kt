@@ -1,16 +1,15 @@
 package com.simplifybiz.mobile.di
 
-import android.content.Context
-import androidx.room.Room
-import androidx.room.RoomDatabase
-import com.simplifybiz.mobile.data.AppDatabase
-import org.koin.mp.KoinPlatform.getKoin
+import com.simplifybiz.mobile.data.auth.GoogleAuthManager
+import org.koin.android.ext.koin.androidContext
+import org.koin.dsl.module
 
-internal actual fun getDatabaseBuilder(): RoomDatabase.Builder<AppDatabase> {
-    val context: Context = getKoin().get()
-    val dbFile = context.getDatabasePath("simplifybiz.db")
-    return Room.databaseBuilder<AppDatabase>(
-        context = context,
-        name = dbFile.absolutePath
-    )
+/**
+ * Android-only Koin module.
+ *
+ * Registers the platform-specific GoogleAuthManager that needs an android
+ * Context. Add to the Koin graph from SimplifyBizApplication.onCreate.
+ */
+val androidPlatformModule = module {
+    single { GoogleAuthManager(androidContext()) }
 }

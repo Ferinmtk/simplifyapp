@@ -78,7 +78,6 @@ kotlin {
             implementation(libs.multiplatform.settings.no.arg)
             implementation(libs.voyager.navigator)
             implementation(libs.voyager.transitions)
-            implementation(libs.voyager.koin)
             implementation(compose.materialIconsExtended)
         }
 
