@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 @PublishedApi
-internal interface PeopleDao : BaseDao<PeopleEntity> {
+interface PeopleDao : BaseDao<PeopleEntity> {
 
     @Query("SELECT * FROM people LIMIT 1")
     override suspend fun getEntity(): PeopleEntity?

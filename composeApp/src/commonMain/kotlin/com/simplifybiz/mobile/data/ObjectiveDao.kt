@@ -6,7 +6,7 @@ import androidx.room.Upsert
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-internal interface ObjectiveDao : BaseDao<ObjectiveEntity> {
+interface ObjectiveDao : BaseDao<ObjectiveEntity> {
     @Query("SELECT * FROM objectives")
     suspend fun getAllEntities(): List<ObjectiveEntity>
 

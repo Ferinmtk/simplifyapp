@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 @PublishedApi
-internal interface ResearchAndDevelopmentDao : BaseDao<ResearchAndDevelopmentEntity> {
+interface ResearchAndDevelopmentDao : BaseDao<ResearchAndDevelopmentEntity> {
 
     @Query("SELECT * FROM research_and_development LIMIT 1")
     override suspend fun getEntity(): ResearchAndDevelopmentEntity?

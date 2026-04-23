@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 @PublishedApi
-internal interface LinkDao : BaseDao<LinkEntity> {
+interface LinkDao : BaseDao<LinkEntity> {
 
     @Query("SELECT * FROM links LIMIT 1")
     override suspend fun getEntity(): LinkEntity?

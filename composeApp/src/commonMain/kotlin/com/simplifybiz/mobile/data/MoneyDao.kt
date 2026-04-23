@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 @PublishedApi
 // Change from 'interface' to 'internal interface' to match @PublishedApi and BaseDao visibility
-internal interface MoneyDao : BaseDao<MoneyEntity> {
+interface MoneyDao : BaseDao<MoneyEntity> {
 
     @Query("SELECT * FROM money LIMIT 1")
     override suspend fun getEntity(): MoneyEntity?

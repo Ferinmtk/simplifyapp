@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 @PublishedApi
-internal interface StrategyDao : BaseDao<StrategyEntity> {
+interface StrategyDao : BaseDao<StrategyEntity> {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     override suspend fun insertEntity(entity: StrategyEntity)
