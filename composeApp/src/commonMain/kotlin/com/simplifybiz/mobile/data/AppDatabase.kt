@@ -1,7 +1,9 @@
 package com.simplifybiz.mobile.data
 
+import androidx.room.ConstructedBy
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import androidx.room.RoomDatabaseConstructor
 import androidx.room.TypeConverters
 
 @Database(
@@ -44,6 +46,7 @@ import androidx.room.TypeConverters
     // on first launch post-upgrade — acceptable pre-release, fix before shipping.
     version = 35
 )
+@ConstructedBy(AppDatabaseConstructor::class)
 @TypeConverters(Converters::class)
 internal abstract class AppDatabase : RoomDatabase() {
 
@@ -60,4 +63,14 @@ internal abstract class AppDatabase : RoomDatabase() {
     abstract fun moneyDao(): MoneyDao
     abstract fun linkDao(): LinkDao
 
+}
+
+// Room's KSP processor generates the actual implementations for each platform
+// (Android, iOS arm64, iOS simulator arm64) at build time. The expect object
+// tells the compiler they'll exist without it having to see them yet, and the
+// @Suppress silences the "no actual" warning that would otherwise appear
+// before KSP has run.
+@Suppress("NO_ACTUAL_FOR_EXPECT")
+expect object AppDatabaseConstructor : RoomDatabaseConstructor<AppDatabase> {
+    override fun initialize(): AppDatabase
 }
