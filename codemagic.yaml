@@ -5,31 +5,23 @@ workflows:
     instance_type: mac_mini_m2
     environment:
       xcode: latest
-      # JDK 21 to match gradle/gradle-daemon-jvm.properties (toolchainVersion=21)
       java: 21
     scripts:
       - name: Set up local.properties
         script: |
           echo "sdk.dir=$ANDROID_SDK_ROOT" > local.properties
-          # BuildConfig fields are read from local.properties by the buildConfig
-          # plugin. For an unsigned simulator build we don't need real values —
-          # empty strings keep the generated class from containing the literal
-          # word "null". Populate these from Codemagic env vars later if needed.
           echo "WP_USERNAME=" >> local.properties
           echo "WP_PASSWORD=" >> local.properties
           echo "GOOGLE_WEB_CLIENT_ID=" >> local.properties
+
       - name: Make gradlew executable
         script: |
           chmod +x ./gradlew
+
       - name: Build iOS app (unsigned, for simulator)
         script: |
           set -eox pipefail
           cd iosApp
-          # xcodebuild triggers the "Compile Kotlin Framework" build phase in
-          # the .pbxproj, which runs ./gradlew :composeApp:embedAndSignAppleFrameworkForXcode
-          # That single Gradle call produces AND embeds the framework using the
-          # ARCHS / SDK / CONFIGURATION env vars Xcode passes in. No separate
-          # Gradle step is needed.
           xcodebuild \
             -project iosApp.xcodeproj \
             -scheme iosApp \
@@ -39,6 +31,20 @@ workflows:
             -derivedDataPath build \
             CODE_SIGNING_ALLOWED=NO \
             build 2>&1 | tee ../xcodebuild.log
+
+      - name: Package app for Appetize
+        script: |
+          set -eox pipefail
+          APP_PATH=$(find iosApp/build/Build/Products/Debug-iphonesimulator -name "*.app" -maxdepth 1 | head -1)
+          echo "Found app at: $APP_PATH"
+          # Verify Info.plist exists
+          ls "$APP_PATH/Info.plist"
+          # Zip correctly — Appetize needs the .app at root of zip
+          cd "$(dirname "$APP_PATH")"
+          zip -r ~/SimplifyBiz.app.zip "$(basename "$APP_PATH")"
+          echo "Packaged successfully"
+
     artifacts:
+      - ~/SimplifyBiz.app.zip
       - iosApp/build/Build/Products/Debug-iphonesimulator/*.app
       - xcodebuild.log
