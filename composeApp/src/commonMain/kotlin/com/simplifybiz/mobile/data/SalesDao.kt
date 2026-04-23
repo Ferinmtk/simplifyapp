@@ -7,7 +7,6 @@ import androidx.room.Query
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-@PublishedApi
 interface SalesDao : BaseDao<SalesEntity> {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

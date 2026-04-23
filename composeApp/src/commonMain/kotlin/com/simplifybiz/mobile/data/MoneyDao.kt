@@ -7,8 +7,6 @@ import androidx.room.Query
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-@PublishedApi
-// Change from 'interface' to 'internal interface' to match @PublishedApi and BaseDao visibility
 interface MoneyDao : BaseDao<MoneyEntity> {
 
     @Query("SELECT * FROM money LIMIT 1")

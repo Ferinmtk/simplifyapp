@@ -7,7 +7,6 @@ import androidx.room.Query
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-@PublishedApi
 interface RiskDao : BaseDao<RiskEntity> {
 
     @Query("SELECT * FROM risks LIMIT 1")

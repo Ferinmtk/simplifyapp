@@ -7,7 +7,6 @@ import androidx.room.Query
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-@PublishedApi
 interface PeopleDao : BaseDao<PeopleEntity> {
 
     @Query("SELECT * FROM people LIMIT 1")

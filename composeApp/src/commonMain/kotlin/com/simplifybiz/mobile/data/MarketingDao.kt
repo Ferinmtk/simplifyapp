@@ -7,7 +7,6 @@ import androidx.room.Query
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-@PublishedApi
 interface MarketingDao : BaseDao<MarketingEntity> {
 
     @Query("SELECT * FROM marketing LIMIT 1")

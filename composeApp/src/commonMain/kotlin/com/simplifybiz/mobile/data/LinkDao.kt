@@ -6,7 +6,6 @@ import androidx.room.Upsert
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-@PublishedApi
 interface LinkDao : BaseDao<LinkEntity> {
 
     @Query("SELECT * FROM links LIMIT 1")
