@@ -1,10 +1,10 @@
 package com.simplifybiz.mobile
 
 import androidx.compose.ui.window.ComposeUIViewController
-import com.simplifybiz.mobile.di.isLoggedIn
+import com.simplifybiz.mobile.di.IosKoin
 
 /**
- * iOS entry point. Called from Swift after `KoinIosKt.initKoinIos()`.
+ * iOS entry point. Called from Swift after `IosKoin.shared.doInit()`.
  *
  * Mirrors Android's MainActivity.onCreate: reads the persisted session
  * state from Room via SessionManager and seeds the Compose tree with it,
@@ -12,5 +12,5 @@ import com.simplifybiz.mobile.di.isLoggedIn
  * the Login screen.
  */
 fun MainViewController() = ComposeUIViewController {
-    App(isLoggedIn = isLoggedIn())
+    App(isLoggedIn = IosKoin.isLoggedIn())
 }
