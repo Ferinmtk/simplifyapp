@@ -42,9 +42,18 @@ import androidx.room.TypeConverters
     //                  Also removed the standalone SystemItem type — Risk and
     //                  R&D reuse LeadershipSystemItem now, matching Sales /
     //                  Operations.
+    // Bumped 35 -> 36: Objectives module webapp alignment.
+    //   - added expected_outcomes column on objectives (List<String> repeater),
+    //   - restructured embedded action_steps JSON: ActionStepItem dropped its
+    //     point_person field (lives on Task now), renamed the json key
+    //     task_name -> action_step (kotlin field name -> name), added
+    //     tasks: List<TaskItem> nested list and a deleted_task_remote_ids list.
+    //   - introduced new TaskItem type for the third tier.
+    //   - schema also becomes effectively multi-row (was being used as
+    //     singleton); existing PK/uuid already supports many rows.
     // fallbackToDestructiveMigration() in DatabaseModule will wipe local data
     // on first launch post-upgrade — acceptable pre-release, fix before shipping.
-    version = 35
+    version = 36
 )
 @ConstructedBy(AppDatabaseConstructor::class)
 @TypeConverters(Converters::class)

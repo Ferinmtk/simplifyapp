@@ -5,6 +5,7 @@ import com.simplifybiz.mobile.presentation.LeadershipViewModel
 import com.simplifybiz.mobile.presentation.LoginViewModel
 import com.simplifybiz.mobile.presentation.MarketingViewModel
 import com.simplifybiz.mobile.presentation.MoneyViewModel
+import com.simplifybiz.mobile.presentation.ObjectivesListViewModel
 import com.simplifybiz.mobile.presentation.ObjectivesViewModel
 import com.simplifybiz.mobile.presentation.OperationsViewModel
 import com.simplifybiz.mobile.presentation.PeopleViewModel
@@ -12,6 +13,7 @@ import com.simplifybiz.mobile.presentation.ResearchAndDevelopmentViewModel
 import com.simplifybiz.mobile.presentation.RiskViewModel
 import com.simplifybiz.mobile.presentation.SalesViewModel
 import com.simplifybiz.mobile.presentation.StrategyViewModel
+import com.simplifybiz.mobile.domain.DeleteObjectiveUseCase
 import com.simplifybiz.mobile.domain.GetLeadershipUseCase
 import com.simplifybiz.mobile.domain.GetMarketingUseCase
 import com.simplifybiz.mobile.domain.GetMoneyUseCase
@@ -55,7 +57,21 @@ val viewModelModule = module {
     viewModel { MarketingViewModel(get(), get(), get()) }
     viewModel { SalesViewModel(get(), get(), get()) }
     viewModel { OperationsViewModel(get(), get(), get()) }
-    viewModel { ObjectivesViewModel(get(), get(), get()) }
+    viewModel { params ->
+        ObjectivesViewModel(
+            getObjectiveUseCase = get(),
+            updateObjectiveUseCase = get(),
+            syncRepository = get(),
+            initialUuid = params.getOrNull() ?: ""
+        )
+    }
+    viewModel {
+        ObjectivesListViewModel(
+            getObjectiveUseCase = get(),
+            deleteObjectiveUseCase = get(),
+            syncRepository = get()
+        )
+    }
     viewModel { ResearchAndDevelopmentViewModel(get(), get(), get()) }
     viewModel { RiskViewModel(get(), get(), get()) }
 

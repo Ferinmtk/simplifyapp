@@ -82,7 +82,7 @@ internal class UniversalSyncRepository(
         syncModule<MoneyEntity>("money", moneyDao, forcePull)
 
     private suspend fun syncObjectives(forcePull: Boolean) =
-        syncModule<ObjectiveEntity>("objective", objectiveDao, forcePull)
+        syncObjectivesList(forcePull)
 
     private suspend fun syncResearchAndDevelopment(forcePull: Boolean) =
         syncModule<ResearchAndDevelopmentEntity>("research_and_development", researchAndDevelopmentDao, forcePull)
@@ -179,6 +179,103 @@ internal class UniversalSyncRepository(
                 if (currentLocal == null || !currentLocal.isDirty) {
                     dao.insertEntity(remote)
                 }
+            }
+        }
+    }
+
+    /**
+     * List-based sync for the Objectives module.
+     *
+     * Unlike the other modules (one entity per user), Objectives are a
+     * collection — users have many. Push iterates every dirty row, pull
+     * replaces the local set with the server's authoritative list, and
+     * server-side deletions propagate by removing local rows that the server
+     * no longer returns. Local dirty rows are preserved across pulls so a
+     * user's pending creation isn't wiped before its first push completes.
+     */
+    private suspend fun syncObjectivesList(forcePull: Boolean) = withContext(ioDispatcher) {
+
+        // Phase 1: Push every dirty objective. Each entity's toSyncPayloads()
+        // emits its objective + action_steps + tasks payloads inline, so a
+        // single POST /sync ships the full tree for every dirty objective.
+        val dirty = objectiveDao.getAllDirty()
+        var justPushed = false
+        if (dirty.isNotEmpty()) {
+            val combinedPayload = dirty.flatMap { it.toSyncPayloads() }
+            if (combinedPayload.isNotEmpty()) {
+                runCatching {
+                    val response: ApiResponse<List<SyncResponseItem>> = client.post("sync") {
+                        setBody(combinedPayload)
+                    }.body()
+
+                    if (response.success) {
+                        // Apply receipts back to whichever local objective they belong to.
+                        // Receipts can target the objective itself, an action step, or a task.
+                        var working = dirty.associateBy { it.uuid }.toMutableMap()
+                        response.data.forEach { receipt ->
+                            // First try matching the receipt's id to an objective uuid
+                            val direct = working[receipt.id]
+                            if (direct != null) {
+                                working[receipt.id] = direct.updateWithSyncReceipt(receipt) as ObjectiveEntity
+                            } else {
+                                // Otherwise it's a child receipt — find the objective whose
+                                // tree contains this id and update there.
+                                val owner = working.values.firstOrNull { obj ->
+                                    obj.actionSteps.any { step ->
+                                        step.id == receipt.id || step.tasks.any { it.id == receipt.id }
+                                    }
+                                }
+                                if (owner != null) {
+                                    working[owner.uuid] = owner.updateWithSyncReceipt(receipt) as ObjectiveEntity
+                                }
+                            }
+                        }
+                        // Persist updated entities back. Mark all as clean since their
+                        // payload landed successfully (receipts arrived).
+                        working.values.forEach { updated ->
+                            objectiveDao.insertEntity(updated.copy(isDirty = false))
+                        }
+                        justPushed = true
+                    }
+                }
+            }
+        }
+
+        // Phase 2: Pull authoritative server list.
+        // Server contract: GET /objective returns ApiResponse<List<ObjectiveEntity>>.
+        // We tolerate the legacy single-entity shape too — if the server hasn't
+        // been updated yet, it's wrapped as a 1-element list locally.
+        if (justPushed || forcePull || dirty.isEmpty()) {
+            val remoteList: List<ObjectiveEntity> = runCatching {
+                val wrapped: ApiResponse<List<ObjectiveEntity>> = client.get("objective").body()
+                if (wrapped.success) wrapped.data else emptyList()
+            }.getOrNull() ?: runCatching {
+                // Legacy fallback — single-entity shape from older PHP.
+                val single: ApiResponse<ObjectiveEntity> = client.get("objective").body()
+                if (single.success) listOf(single.data) else emptyList()
+            }.getOrNull() ?: emptyList()
+
+            // Phase 3: Reconcile remote with local.
+            //
+            // - Insert/update each remote entity, but never overwrite a locally
+            //   dirty row (user's pending edits take priority).
+            // - Delete local rows whose uuid the server didn't return AND that
+            //   aren't dirty (server-side deletion).
+            val localCurrent = objectiveDao.getAllEntities()
+            val remoteUuids = remoteList.map { it.uuid }.toSet()
+
+            remoteList.forEach { remote ->
+                val localMatch = localCurrent.firstOrNull { it.uuid == remote.uuid }
+                if (localMatch == null || !localMatch.isDirty) {
+                    objectiveDao.insertEntity(remote)
+                }
+            }
+
+            val toDelete = localCurrent
+                .filter { !it.isDirty && it.uuid !in remoteUuids }
+                .map { it.uuid }
+            if (toDelete.isNotEmpty()) {
+                objectiveDao.deleteAllByUuid(toDelete)
             }
         }
     }

@@ -325,13 +325,13 @@ class DashboardScreen : Screen {
                             icon = Icons.Outlined.TrackChanges,
                             color = Color(0xFF7B1FA2),
                             status = objectiveStatus
-                        ) { navigator.push(ObjectiveScreen()) },
+                        ) { navigator.push(ObjectivesListScreen()) },
                         GridItem(
                             title = "Action Steps",
                             icon = Icons.Outlined.Checklist,
                             color = Color(0xFF7B1FA2),
                             status = "not_started"
-                        ) { navigator.push(ActionStepManagerScreen()) }
+                        ) { navigator.push(ActionStepsScreen()) }
                     )
                 }
 

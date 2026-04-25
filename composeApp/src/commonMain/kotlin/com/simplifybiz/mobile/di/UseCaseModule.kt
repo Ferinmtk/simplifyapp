@@ -1,6 +1,7 @@
 package com.simplifybiz.mobile.di
 
 import com.simplifybiz.mobile.data.MoneyRepository
+import com.simplifybiz.mobile.domain.DeleteObjectiveUseCase
 import com.simplifybiz.mobile.domain.GetLeadershipUseCase
 import com.simplifybiz.mobile.domain.GetMarketingUseCase
 import com.simplifybiz.mobile.domain.GetMoneyUseCase
@@ -37,6 +38,7 @@ val useCaseModule = module {
 
     factory { GetObjectiveUseCase(repository = get()) }
     factory { UpdateObjectiveUseCase(repository = get()) }
+    factory { DeleteObjectiveUseCase(repository = get()) }
 
     factory { GetResearchAndDevelopmentUseCase(repository = get()) }
     factory { UpdateResearchAndDevelopmentUseCase(repository = get()) }

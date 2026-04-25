@@ -21,6 +21,15 @@ class Converters {
     fun toIntList(value: String): List<Int> =
         runCatching { json.decodeFromString<List<Int>>(value) }.getOrElse { emptyList() }
 
+    // Used by ObjectiveEntity.expectedOutcomes (free-text repeater).
+    @TypeConverter
+    fun fromStringList(value: List<String>): String =
+        runCatching { json.encodeToString(value) }.getOrElse { "[]" }
+
+    @TypeConverter
+    fun toStringList(value: String): List<String> =
+        runCatching { json.decodeFromString<List<String>>(value) }.getOrElse { emptyList() }
+
     @TypeConverter
     fun fromTargetMarketList(value: List<TargetMarketItem>): String =
         runCatching { json.encodeToString(value) }.getOrElse { "[]" }
